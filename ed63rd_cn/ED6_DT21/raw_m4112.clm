@@ -215,7 +215,7 @@ fn[2]:
 		#40W     前方为无色的学舍。
 		#500W
 		#40W       请与洁白之翼
-		       一起触摸表盘。{color 0}{wait}
+		#40W       一起触摸表盘。{color 0}{wait}
 	}
 	TextWait
 	TextClose 0
@@ -597,7 +597,7 @@ fn[3]:
 		#40W     前方为无色的学舍。
 		#500W
 		#40W       请与洁白之翼
-		       一起触摸表盘。{color 0}{wait}
+		#40W       一起触摸表盘。{color 0}{wait}
 	}
 	TextWait
 	TextClose 0
@@ -823,7 +823,7 @@ fn[5]:
 			#40W     前方为无色的学舍。
 			#500W
 			#40W       请与洁白之翼
-			       一起触摸表盘。{color 0}{wait}
+			#40W       一起触摸表盘。{color 0}{wait}
 		}
 		TextWait
 		TextClose 0
@@ -845,7 +845,7 @@ fn[5]:
 			#40W     前方为无色的学舍。
 			#500W
 			#40W       请与洁白之翼
-			       一起触摸表盘。{color 0}{wait}
+			#40W       一起触摸表盘。{color 0}{wait}
 		}
 		TextWait
 		TextClose 0
@@ -919,7 +919,7 @@ fn[6]:
 		#40W      前方为铁壁要塞。
 		#500W
 		#40W     请与剑圣的继承者
-		       一起触摸表盘。{color 0}{wait}
+		#40W     一起触摸表盘。{color 0}{wait}
 	}
 	TextWait
 	TextClose 0
@@ -1168,7 +1168,7 @@ fn[7]:
 		#40W      前方为铁壁要塞。
 		#500W
 		#40W     请与剑圣的继承者
-		       一起触摸表盘。{color 0}{wait}
+		#40W     一起触摸表盘。{color 0}{wait}
 	}
 	TextWait
 	TextClose 0
@@ -1394,7 +1394,7 @@ fn[9]:
 			#40W      前方为铁壁要塞。
 			#500W
 			#40W     请与剑圣的继承者
-			       一起触摸表盘。{color 0}{wait}
+			#40W     一起触摸表盘。{color 0}{wait}
 		}
 		TextWait
 		TextClose 0
@@ -1416,7 +1416,7 @@ fn[9]:
 			#40W      前方为铁壁要塞。
 			#500W
 			#40W     请与剑圣的继承者
-			       一起触摸表盘。{color 0}{wait}
+			#40W     一起触摸表盘。{color 0}{wait}
 		}
 		TextWait
 		TextClose 0

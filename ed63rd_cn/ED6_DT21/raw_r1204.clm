@@ -2187,7 +2187,7 @@ fn[8]:
 	TextSetName "似曾相识的男性"
 	TextMessage null {
 		#97437v#12C好可爱呢。
-		简直长得和你一摸一样。#0C{wait}
+		简直长得和你一模一样。#0C{wait}
 	}
 	TextWait
 	TextClose 0

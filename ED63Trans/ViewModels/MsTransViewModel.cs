@@ -31,14 +31,14 @@ public partial class MsTransViewModel: ViewModelBase
     public List<byte[]> BanBytes = [];
     public MsTransViewModel()
     {
-        _msDatFiles =Directory.EnumerateFiles("E:\\SteamLibrary\\steamapps\\common\\Trails in the Sky the 3rd\\ED6_DT30").ToList();
-        
-        _currentDat = "as04080._dt";
-        var index = _msDatFiles.FindIndex(x => x.Contains(_currentDat));
-        if (index == -1) return;
-        var f1 = _msDatFiles[index];
-        var f2 = $"E:\\Games\\ED63RD\\ED_SORA3\\ED6_DT30\\{Path.GetFileName(f1)}";
-        GetTexts(f1,f2);
+        // _msDatFiles =Directory.EnumerateFiles("E:\\SteamLibrary\\steamapps\\common\\Trails in the Sky the 3rd\\ED6_DT30").ToList();
+        //
+        // _currentDat = "as04080._dt";
+        // var index = _msDatFiles.FindIndex(x => x.Contains(_currentDat));
+        // if (index == -1) return;
+        // var f1 = _msDatFiles[index];
+        // var f2 = $"E:\\Games\\ED63RD\\ED_SORA3\\ED6_DT30\\{Path.GetFileName(f1)}";
+        // GetTexts(f1,f2);
     }
     public static IEnumerable<int> IndexOf(byte[] source, int start, byte[] pattern)
     {

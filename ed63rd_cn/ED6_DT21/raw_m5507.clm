@@ -3,7 +3,7 @@ scena:
 	name "Gaiden3" "M5507.x"
 	town town[1]
 	bgm bgm[231]
-	item fn[0,65535]
+	item_use fn[0,65535]
 
 entry:
 	pos (0, 0, 0)
@@ -36,7 +36,7 @@ fn[0]:
 
 fn[1]:
 	MapSet 4000 (-128000, null, -121000) file[0x002300A4]
-	_1B look_point[1] fn[0,3]
+	EntranceSetFunc entrance[1] fn[0,3]
 	Return
 
 fn[2]:
@@ -44,8 +44,8 @@ fn[2]:
 	FadeOut 0ms 0x00000000 255
 	CharSetPos name[8] (950, 0, 25250) 180deg
 	CharSetPos name[1] (2360, 0, 25120) 180deg
-	CharSetPos party[2] (1230, 0, 26610) 180deg
-	CharSetPos party[3] (2670, 0, 26530) 180deg
+	CharSetPos char[232] (1230, 0, 26610) 180deg
+	CharSetPos char[233] (2670, 0, 26530) 180deg
 	CamLookPos (2700, 3000, -24000) 0ms
 	CamSetDistance 0 14750 -10000 0ms
 	CamZoom 2930 0ms
@@ -68,10 +68,10 @@ fn[2]:
 	Fork name[1] fork[0]:
 		CharWalkToPos self (-10, 0, 13030) 2000mm/s 0
 	Sleep 130ms
-	Fork party[2] fork[0]:
+	Fork char[232] fork[0]:
 		CharWalkToPos self (-1430, 0, 14740) 2000mm/s 0
 	Sleep 150ms
-	Fork party[3] fork[0]:
+	Fork char[233] fork[0]:
 		CharWalkToPos self (290, 0, 14490) 2000mm/s 0
 	Sleep 1000ms
 	CrossFade 1000ms
@@ -92,8 +92,8 @@ fn[2]:
 	FadeWait
 	ForkWait name[8] fork[0]
 	ForkWait name[1] fork[0]
-	ForkWait party[2] fork[0]
-	ForkWait party[3] fork[0]
+	ForkWait char[232] fork[0]
+	ForkWait char[233] fork[0]
 	ForkWait name[8] fork[1]
 	ForkWait name[1] fork[1]
 	Sleep 1000ms

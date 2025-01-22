@@ -217,7 +217,7 @@ fn[3]:
 		#40W       前方是黑色方舟。
 		#500W 
 		#40W      请与灭亡故里的遗孤
-		      一起触摸表盘。{color 0}{wait}
+		#40W      一起触摸表盘。{color 0}{wait}
 	}
 	TextWait
 	TextClose 0
@@ -523,7 +523,7 @@ fn[4]:
 		#40W       前方是黑色方舟。
 		#500W 
 		#40W      请与灭亡故里的遗孤
-		      一起触摸表盘。{color 0}{wait}
+		#40W      一起触摸表盘。{color 0}{wait}
 	}
 	TextWait
 	TextClose 0
@@ -740,7 +740,7 @@ fn[6]:
 			#40W       前方是黑色方舟。
 			#500W 
 			#40W      请与灭亡故里的遗孤
-			      一起触摸表盘。{color 0}{wait}
+			#40W      一起触摸表盘。{color 0}{wait}
 		}
 		TextWait
 		TextClose 0
@@ -762,7 +762,7 @@ fn[6]:
 			#40W       前方是黑色方舟。
 			#500W 
 			#40W      请与灭亡故里的遗孤
-			      一起触摸表盘。{color 0}{wait}
+			#40W      一起触摸表盘。{color 0}{wait}
 		}
 		TextWait
 		TextClose 0

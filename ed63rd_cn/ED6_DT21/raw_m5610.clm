@@ -2044,8 +2044,7 @@ fn[30]:
 		TextSetName ""
 		TextMessage null {
 			{color 2}#1S#40W铁之川奔腾流逝。
-			调查操纵此奔流的
-			六道水门之一吧。
+			调查操纵此奔流的六道水门之一吧。
 			如此汝即可获得光辉。{wait}
 		}
 		TextWait
@@ -2219,8 +2218,7 @@ fn[30]:
 		TextSetName ""
 		TextMessage null {
 			{color 2}#1S#40W铁之川奔腾流逝。
-			调查操纵此奔流的
-			六道水门之一吧。
+			调查操纵此奔流的六道水门之一吧。
 			如此汝即可获得光辉。{wait}
 		}
 		TextWait

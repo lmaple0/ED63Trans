@@ -43,14 +43,16 @@ internal class Program
             return;
         }
 
+#if DEBUG
+        Mem.OpenED6();
+#else
         if (args.Length == 0 || !int.TryParse(args[0], out var pid) || !Mem.OpenPID(pid))
         {
             WriteError("open game failed.");
-#if !DEBUG
-            return;
-#endif
-        }
 
+            return;
+        }
+#endif
 
         //var file1 = "F:\\源码\\C#\\ED63Trans\\ED63Trans\\bin\\Debug\\net9.0\\fonts_霞鹜\\font96._da";
         //var bytes = File.ReadAllBytes(file1);
@@ -97,13 +99,13 @@ internal class Program
         var pos = 0;
 #if CONSOLE
         Console.WriteLine($"allocated base address：{allocAddr:X}\n");
-        //foreach (var item in stringList)
-        //{
-        //    if (item.Key.Contains("Failed to steal anything.") || item.Key.Contains("Various Shops"))
-        //    {
+        foreach (var item in stringList)
+        {
+            if (item.Key.Contains("Synthesized"))
+            {
 
-        //    }
-        //}
+            }
+        }
 #endif
 
         foreach (var item in replaceDic)
@@ -111,6 +113,7 @@ internal class Program
 
             if (stringList.TryGetValue(item.Key, out var rstr))
             {
+
                 var text = ReplaceFactory.ReplaceSjisChar(item.Value.Text);
                 var ascii = ReplaceFactory.SjisEncoding.GetBytes(text);
                 var str_vaddr = reader.Calc_vAddr(rstr.offset);

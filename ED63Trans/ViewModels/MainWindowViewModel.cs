@@ -15,7 +15,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Avalonia.Threading;
+using Avalonia.Controls.ApplicationLifetimes;
 
 #endregion
 
@@ -32,7 +32,7 @@ public partial class MainWindowViewModel : ViewModelBase
     public static MainWindowViewModel? Instance { get; private set; }
     [ObservableProperty] private float _halfCharXOffset = 1;
     [ObservableProperty] private float _halfCharYOffset = 6;
-    [ObservableProperty] private float _charXOffset = 1;
+    [ObservableProperty] private float _charXOffset = 0;
     [ObservableProperty] private float _charYOffset = 6;
     private SoraTrans? _clm;
     [ObservableProperty] private string _clmCurrentParagraph = "";
@@ -156,10 +156,10 @@ public partial class MainWindowViewModel : ViewModelBase
 
 
 
-        // ConvertSn_2(
-        //     "C:\\Users\\Jelly\\Desktop\\ED6SCRIPT\\ED6_DT21_初版1\\raw_u7002.clm",
-        //     "C:\\Users\\Jelly\\Desktop\\ED6SCRIPT\\ED6_DT21_初版1\\u7002.clm");
-
+        ConvertSn_2(
+            "C:\\Users\\Jelly\\Desktop\\1.0.8\\raw_m5507.clm",
+            "C:\\Users\\Jelly\\Desktop\\1.0.8\\m5507.clm");
+        
         //foreach (var sn in Directory.EnumerateFiles("E:\\SteamLibrary\\steamapps\\common\\Trails in the Sky the 3rd\\ED6_DT21\\raw"))
         //{
         //    Process.Start(Path.Combine(AureoleToolPath, "calmare.exe"), $"\"{sn}\"");
@@ -786,11 +786,15 @@ public partial class MainWindowViewModel : ViewModelBase
                 HalfCharSize = value - 10;
                 FontSize = value - 10;
                 break;
+            case >= 80:
+                HalfCharSize = value - 6;
+                FontSize = value - 6;
+                break;
             case >= 64:
                 HalfCharSize = value - 4;
                 FontSize = value - 4;
                 break;
-            case >= 50:
+            case >= 40:
                 HalfCharSize = value - 3;
                 FontSize = value - 3;
                 break;

@@ -181,7 +181,9 @@ public class SoraFont
                 continue;
             }
 
+    
             GenerateSoraChar(i, ch, PixelSize, true, metrics, bitmap, canvas, font, paint, ref ms, callback);
+      
         }
 
         canvas.Restore();
@@ -200,8 +202,15 @@ public class SoraFont
                 var ch = _replaceChars.TryGetValue(code, out var replaceChar)
                     ? replaceChar
                     : JisEncoding.GetString(charBytes);
-
+                if (i == 0x84aa)
+                {
+                    canvas.Scale(2, 1);
+                }
                 GenerateSoraChar(i, ch, PixelSize, false, metrics, bitmap, canvas, font, paint, ref ms, callback);
+                if (i == 0x84aa)
+                {
+                    canvas.Restore();
+                }
             }
 
         var bytes = ms.ToArray();
