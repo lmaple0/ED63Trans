@@ -29,6 +29,18 @@ internal class Program
 
     public static void Main(string[] args)
     {
+        try
+        {
+            Run(args);
+        }
+        catch (Exception ex)
+        {
+            Mem.FailVisible(ex.ToString());
+        }
+    }
+
+    static void Run(string[] args)
+    {
 #if CONSOLE
         foreach (var arg in args)
         {
@@ -53,6 +65,7 @@ internal class Program
             return;
         }
 #endif
+        ReserveHdFontsNow();
 
         //var file1 = "F:\\源码\\C#\\ED63Trans\\ED63Trans\\bin\\Debug\\net9.0\\fonts_霞鹜\\font96._da";
         //var bytes = File.ReadAllBytes(file1);
@@ -132,7 +145,7 @@ internal class Program
                     foreach (AsmMatch m in matches)
                     {
                         var asm_pointer = reader.Calc_vAddr(m.Offset);
-                        var new_va = (uint)(allocAddr + pos);
+                        var new_va = FontAlloc.ToUInt32Addr(allocAddr) + (uint)pos;
 #if CONSOLE
                         Console.Write($"replace: foa:{rstr.offset:X},va:{str_vaddr:X},new va: {new_va:X},asm pointer:{asm_pointer:X},text:{rstr.str.Replace("\n", "\\n")} \t");
 #endif
@@ -165,6 +178,7 @@ internal class Program
         Mem.SetWindowTitle();
 
         WriteFont(reader.FontAddrs,reader.Cmp48hAddr);
+        Mem.ReleaseUnusedFontReservations();
 #if CONSOLE
         Console.WriteLine("\ndone.");
         if (error)
@@ -195,17 +209,13 @@ internal class Program
         if (success && fontLoaded)
         {
             Thread.Sleep(1000);
-            foreach (var font in fonts)
+            foreach (var font in fonts.OrderByDescending(x => x.Key))
             {
                 if (font.Key is 8 )
                     continue;
                 if (!Mem.ReadUint(font.Value, out var num) || num <= 0) 
                     continue;
-#if DEBUG
-                var data = File.ReadAllBytes($"E:\\SteamLibrary\\steamapps\\common\\Trails in the Sky the 3rd\\rdata\\font{font.Key}._da");
-#else
-                    var data = File.ReadAllBytes($"rdata\\font{font.Key}._da");
-#endif
+                var data = File.ReadAllBytes(FontDaPath(font.Key));
                
                 if (font.Key >=72 )
                 {
@@ -213,18 +223,21 @@ internal class Program
                     {
                         _4k = true;
                     }
-                    var addr = (uint)(Mem.Alloc((uint)data.Length + 0x20) +0x20);
-                    //Mem.Read(num - 0x20, out var fontMemData, 0x20);
-                    //Mem.Write((uint)addr, fontMemData, true);
-                    Mem.Write(addr, data, true);
-                    Mem.Write(font.Value, BitConverter.GetBytes(addr), true);
+                    var alloc = Mem.TakeReservedOrAlloc(font.Key, (uint)data.Length + FontAlloc.HeaderPad);
+                    if (!FontAlloc.TryFromAlloc(alloc, out var addr))
+                        Mem.FailVisible($"font{font.Key} refused base 0x20, alloc=0x{FontAlloc.ToUInt32Addr(alloc):X}, size={data.Length}");
+                    if (!Mem.Write(addr, data, true))
+                        Mem.FailVisible($"font{font.Key} WriteProcessMemory payload failed, dest={addr:X}, size={data.Length}");
+                    if (!Mem.Write(font.Value, BitConverter.GetBytes(addr), true))
+                        Mem.FailVisible($"font{font.Key} WriteProcessMemory pointer failed, slot={font.Value:X}, addr={addr:X}");
 #if CONSOLE
                     Console.WriteLine($"font{font.Key} old addr: {num:X}, new addr: {addr:X}");
 #endif
                 }
                 else 
                 {
-                    Mem.Write(num, data, true);
+                    if (!Mem.Write(num, data, true))
+                        Mem.FailVisible($"font{font.Key} in-place write failed, dest={num:X}, size={data.Length}");
 #if CONSOLE
                     Console.WriteLine($"font{font.Key} addr: {num:X} 已写入.");
 #endif
@@ -239,9 +252,30 @@ internal class Program
             JmpCmp48h(cmp48hAddr);
         }
     }
+    static void ReserveHdFontsNow()
+    {
+        foreach (var px in FontAlloc.HdPixels)
+        {
+            var path = FontDaPath(px);
+            if (!File.Exists(path))
+                continue;
+            Mem.ReserveForFont(px, (uint)new FileInfo(path).Length + FontAlloc.HeaderPad);
+        }
+    }
+
+    static string FontDaPath(uint px)
+    {
+#if DEBUG
+        return $"E:\\SteamLibrary\\steamapps\\common\\Trails in the Sky the 3rd\\rdata\\font{px}._da";
+#else
+        return $"rdata\\font{px}._da";
+#endif
+    }
+
     public static void JmpCmp48h(uint cmp48hAddr)
     {
-        Mem.Write(cmp48hAddr, [0xeb],true);
+        if (!Mem.Write(cmp48hAddr, [0xeb], true))
+            Mem.FailVisible($"JmpCmp48h WriteProcessMemory failed at {cmp48hAddr:X}");
     }
 
     public static bool Redirect(uint pointer, uint addr, byte[] newData)
